@@ -1,0 +1,16 @@
+<!doctype html><html lang="bn"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>আদি প্রসান্ত বস্ত্রালয়</title><link rel="stylesheet" href="style.css"></head><body>
+<header><b>আদি প্রসান্ত বস্ত্রালয়</b><a href="https://wa.me/919733672234">WhatsApp</a></header>
+<section class="hero"><small>নতুন কালেকশন</small><h1>আপনার পছন্দের শাড়ি<br>এখন এক জায়গায়</h1><p>কালেকশন দেখুন এবং WhatsApp-এ অর্ডার করুন।</p></section>
+<main><div class="tools"><input id="search" placeholder="শাড়ি খুঁজুন..."><select id="cat"><option value="">সব ক্যাটাগরি</option></select></div><p id="status">লোড হচ্ছে...</p><div id="products" class="grid"></div></main>
+<footer>© আদি প্রসান্ত বস্ত্রালয় • +91 97336 72234</footer>
+<script type="module">
+import {initializeApp} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+import {getFirestore,collection,getDocs,query,orderBy} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+import {firebaseConfig} from "./firebase-config.js";
+const db=getFirestore(initializeApp(firebaseConfig)),box=document.querySelector("#products"),search=document.querySelector("#search"),cat=document.querySelector("#cat"),status=document.querySelector("#status");let items=[];
+function render(){let q=search.value.toLowerCase(),c=cat.value;let a=items.filter(p=>(!q||(p.name||"").toLowerCase().includes(q))&&(!c||p.category===c));box.innerHTML=a.map(p=>`<article><img src="${p.image||'https://images.unsplash.com/photo-1610030469983-98e550d6193c'}"><div><small>${p.category||"Saree"}</small><h3>${p.name||""}</h3><strong>₹${p.price||""}</strong><a href="https://wa.me/919733672234?text=${encodeURIComponent("আমি "+p.name+" অর্ডার করতে চাই। দাম: ₹"+p.price)}">WhatsApp-এ অর্ডার</a></div></article>`).join("")||"<p>কোনো পণ্য পাওয়া যায়নি।</p>"}
+async function load(){let s;try{s=await getDocs(query(collection(db,"products"),orderBy("createdAt","desc")))}catch(e){s=await getDocs(collection(db,"products"))}items=s.docs.map(d=>({id:d.id,...d.data()}));let cs=[...new Set(items.map(x=>x.category).filter(Boolean))];cat.innerHTML='<option value="">সব ক্যাটাগরি</option>'+cs.map(x=>`<option>${x}</option>`).join("");status.textContent=items.length+"টি পণ্য";render()}
+search.oninput=render;cat.onchange=render;load().catch(e=>status.textContent="লোড করা যায়নি: "+e.message);
+</script></body></html>

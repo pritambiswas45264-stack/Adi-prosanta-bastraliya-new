@@ -1,0 +1,22 @@
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,"Noto Sans Bengali",sans-serif;background:#fff8f7;color:#25191b}
+header{display:flex;justify-content:space-between;align-items:center;padding:16px 18px;background:#fff;border-bottom:1px solid #eadfe0;position:sticky;top:0;z-index:10}
+header b{font-size:18px}
+header a,.hero a,article a{background:#25d366;color:#fff;text-decoration:none;padding:9px 13px;border-radius:999px;font-weight:700}
+.hero{padding:48px 20px 42px;background:linear-gradient(135deg,#fff0f4,#f5efff);text-align:center}
+.hero small{font-weight:700}
+.hero h1{font-size:clamp(30px,8vw,52px);line-height:1.15;margin:12px 0}
+.hero p{color:#66595c}
+main{max-width:1100px;margin:auto;padding:24px 16px 45px}
+.tools{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+input,select{flex:1;min-width:150px;padding:13px 14px;border:1px solid #ddd0d2;border-radius:12px;background:#fff;font-size:15px}
+#status{color:#75676a}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}
+article{overflow:hidden;background:#fff;border:1px solid #eadfe0;border-radius:18px;box-shadow:0 5px 20px rgba(60,30,35,.06)}
+article img{width:100%;height:280px;object-fit:cover;display:block}
+article>div{padding:15px}
+article small{color:#8a5d68}
+article h3{margin:7px 0;font-size:19px}
+article strong{display:block;font-size:20px;margin-bottom:13px}
+article a{display:inline-block}
+footer{text-align:center;padding:22px 15px;background:#25191b;color:#fff}
